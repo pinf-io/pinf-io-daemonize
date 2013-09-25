@@ -1,0 +1,71 @@
+{
+  "uid": "github.com/pinf-io/pinf-io-daemonize",
+  "name": "pinf-io-daemonize",
+  "version": "0.1.0",
+  "pm": "sm",
+  "engines": {
+    "node": "~0.10.15"
+  },
+  "mappings": {
+    "pinf-for-nodejs": "github.com/pinf/pinf-for-nodejs/~0.1.3",
+    "pinf-io-util": "github.com/pinf-io/pinf-io-util/~0.1.0",
+    "mon": [
+      "sm",
+      "github.com/visionmedia/mon/~1.2.2",
+      {
+        "descriptor": {
+          "pm": "make",
+          "bin": {
+            "mon": "./mon"
+          }
+        }
+      }
+    ]
+  },
+  "dependencies": {
+    "request": "~2.27.0",
+    "commander": "~2.0.0",
+    "mocha": "~1.13.0"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/mocha --reporter list test/*.js"
+  },
+  "overrides": {
+    "./node_modules/request/node_modules/hawk/node_modules/boom": {
+      "descriptor": {
+        "config": {
+          "pinf/0/bundler/options/0": {
+            "mapParentSiblingPackages": 2
+          }
+        }
+      }
+    },
+    "./node_modules/request/node_modules/hawk/node_modules/sntp": {
+      "descriptor": {
+        "config": {
+          "pinf/0/bundler/options/0": {
+            "mapParentSiblingPackages": 2
+          }
+        }
+      }
+    },
+    "./node_modules/request/node_modules/hawk/node_modules/cryptiles": {
+      "descriptor": {
+        "config": {
+          "pinf/0/bundler/options/0": {
+            "mapParentSiblingPackages": 2
+          }
+        }
+      }
+    },
+    "./node_modules/request/node_modules/form-data": {
+      "descriptor": {
+        "config": {
+          "pinf/0/bundler/options/0": {
+            "mapParentSiblingPackages": 2
+          }
+        }
+      }
+    }
+  }
+}

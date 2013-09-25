@@ -1,0 +1,7 @@
+{
+	"config": {
+		"github.com/pinf-io/pinf-io-daemonize": {
+			"scriptPath": "$__DIRNAME/assets/server.js"
+		}
+	}
+}
