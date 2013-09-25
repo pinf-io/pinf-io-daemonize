@@ -2,7 +2,7 @@
 const PINF_MAIN = require("pinf-for-nodejs/lib/main").main;
 const IO = require("./io");
 
-exports.forModule = function(module) {
+exports.forModule = function(module, moduleOverlays) {
 
 	module.exports.main = function(options, request, callback) {
 
@@ -12,6 +12,10 @@ exports.forModule = function(module) {
 			if (!options.$pinf.config.enable) {
 				return callback(null);
 			}
+
+			IO.forModule({
+				exports: IO
+			}, moduleOverlays);
 
 			return IO.for(options.$pinf, function(err, IO) {
 				if (err) return callback(err);
