@@ -174,15 +174,26 @@ exports.forModule = function(module, moduleOverlays) {
                     if (Object.keys(idChains).length === 0) {
                         return callback(null, false);
                     }
-                    return REQUEST("http://127.0.0.1:" + config.pinf.io.port + "/", function (err, response, body) {
-                        if (err) return callback(null, false);
-                        if (response.statusCode > 0) {
+                    function finalize(running) {
+                        if (running) {
                             return callback(null, idChains);
                         }
                         return callback(null, false);
-                    });
-
-                    return callback(null, idChains);
+                    }
+                    if (typeof moduleOverlays.isRunning === "function") {
+                        return moduleOverlays.isRunning($pinf, config[moduleOverlays.name], function (err, running) {
+                            if (err) return callback(err);
+                            return finalize(running);
+                        });
+                    } else {
+                        return REQUEST("http://127.0.0.1:" + config.pinf.io.port + "/", function (err, response, body) {
+                            if (err) {
+                                // TODO: Only return clean if expected errors occur. Throw on unexpected errors for better debugging.
+                                return callback(null, false);
+                            }
+                            return finalize( (response.statusCode > 0) );
+                        });
+                    }
                 });
             });
         }
